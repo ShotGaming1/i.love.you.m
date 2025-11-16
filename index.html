@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>فقط برای تو</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+      font-family: 'Tahoma', sans-serif;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    h2 {
+      color: #c2185b;
+      font-size: 24px;
+    }
+
+    .doors {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-top: 80px;
+    }
+
+    .door {
+      width: 120px;
+      height: 160px;
+      background-color: #f8bbd0;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ec407a;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .door:hover {
+      transform: scale(1.1);
+    }
+
+    .door::before {
+      content: "💌";
+      font-size: 36px;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .result {
+      margin-top: 100px;
+      font-size: 22px;
+      color: #880e4f;
+      animation: fadeIn 1s ease-in;
+      white-space: pre-line;
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .footer {
+      margin-top: 80px;
+      font-size: 14px;
+      color: #b71c1c;
+    }
+
+    .music-control {
+      margin-top: 40px;
+    }
+
+    .music-control button {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 0 10px #ec407a;
+    }
+
+    .music-control button:hover {
+      background-color: #ec407a;
+    }
+  </style>
+</head>
+<body>
+  <h2>...یکی از این دوتا رو بزن</h2>
+  <div class="doors">
+    <div class="door" onclick="reveal(0)"></div>
+    <div class="door" onclick="reveal(1)"></div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="music-control">
+    <button onclick="stopMusic()">⏯️ توقف موزیک</button>
+  </div>
+
+  <audio id="bg-music">
+    <source src="https://files.catbox.moe/1osgn4.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="footer">:) زندگیمی دختر</div>
+
+  <script>
+    const messages = [
+      {
+        heart: "💗",
+        text: "هر بار که این قلب می‌زنه یعنی هنوز یادتم"
+      },
+      {
+        heart: "💞",
+        text: "گاهی فقط دلم می‌خواد بیام تو بغلت هیچی نگم فقط باشم چون هیچ‌جای دنیا اندازه‌ی تو"
+      }
+    ];
+
+    let musicPlayed = false;
+
+    function reveal(index) {
+      const msg = messages[index];
+      document.getElementById("result").innerHTML = `
+        <div class="heart">${msg.heart}</div>
+        <div>${msg.text}</div>
+      `;
+      const music = document.getElementById("bg-music");
+      if (!musicPlayed) {
+        music.play();
+        musicPlayed = true;
+      }
+    }
+
+    function stopMusic() {
+      const music = document.getElementById("bg-music");
+      music.pause();
+      music.currentTime = 0;
+      musicPlayed = false;
+    }
+  </script>
+</body>
+</html>
